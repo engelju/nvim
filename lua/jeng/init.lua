@@ -2,8 +2,7 @@ require("jeng.lazy")
 require("jeng.remap")
 require("jeng.options")
 require("jeng.cmds")
-
-vim.g.netrw_banner = 0
+require("jeng.netrw")
 
 -- colors
 vim.cmd.colorscheme('NeoSolarized')

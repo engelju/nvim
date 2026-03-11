@@ -56,20 +56,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
--- open alpha when no buffer
-vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-	pattern = "BDeletePre *",
-	group = "alpha_on_empty",
-	callback = function()
-		local bufnr = vim.api.nvim_get_current_buf()
-		local name = vim.api.nvim_buf_get_name(bufnr)
-		if name == "" then
-			vim.cmd([[:Alpha | bd#]])
-		end
-	end,
-})
-
 -- Conditional taken from https://github.com/rockyzhang24/dotfiles/commit/03dd14b5d43f812661b88c4660c03d714132abcf
 -- Workaround for https://github.com/neovim/neovim/issues/32068
 
