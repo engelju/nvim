@@ -20,7 +20,6 @@ require("lazy").setup({
 	spec = {
 		{ 'overcache/NeoSolarized' },
 		{ 'tpope/vim-sensible' },
-		{ 'tpope/vim-fugitive' },
 		{ 'tomtom/tcomment_vim' },
 		{
 			'nvim-telescope/telescope.nvim',
