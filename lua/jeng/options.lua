@@ -28,7 +28,6 @@ vim.opt.smartindent = true
 -- vim.opt.showcmd = false
 -- vim.opt.wrap = true --toggle bound to leader W
 -- vim.opt.mouse = "a" --enable mouse
--- vim.opt.clipboard = "unnamedplus" --system clipboard integration
 -- vim.opt.history = 100 --command line history
 -- vim.opt.swapfile = false --swap just gets in the way usually
 -- vim.opt.backup = false
@@ -53,5 +52,5 @@ vim.opt.smartindent = true
 -- vim.opt.splitkeep = 'screen' --stablizie window open/close
 
 -- mine
-vim.o.autochdir = true
-
+vim.o.autochdir = true                  -- auto change into directory
+vim.opt.clipboard = "unnamedplus"       -- use system clipboard
