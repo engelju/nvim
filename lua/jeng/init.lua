@@ -1,5 +1,4 @@
 require("jeng.lazy")
--- require("jeng.plug")
 require("jeng.remap")
 require("jeng.options")
 require("jeng.cmds")
