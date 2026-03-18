@@ -22,10 +22,10 @@ vim.opt.smartindent = true
 -- vim.opt.updatetime = 50
 
 -- bop's settings
--- vim.opt.laststatus = 3
+vim.opt.laststatus = 3
 -- vim.opt.ruler = false --disable extra numbering
--- vim.opt.showmode = false --not needed due to lualine
--- vim.opt.showcmd = false
+vim.opt.showmode = false --not needed due to lualine
+vim.opt.showcmd = false
 -- vim.opt.wrap = true --toggle bound to leader W
 -- vim.opt.mouse = "a" --enable mouse
 -- vim.opt.history = 100 --command line history
@@ -35,7 +35,7 @@ vim.opt.smartindent = true
 -- vim.opt.cursorline = true --highlight line
 -- vim.opt.ttyfast = true --faster scrolling
 -- vim.opt.smoothscroll = true
--- vim.opt.title = true --automatic window titlebar
+vim.opt.title = true --automatic window titlebar
 -- vim.opt.numberwidth = 4
 -- vim.opt.smarttab = true --indentation stuff
 -- vim.opt.cindent = true
@@ -52,5 +52,5 @@ vim.opt.smartindent = true
 -- vim.opt.splitkeep = 'screen' --stablizie window open/close
 
 -- mine
-vim.o.autochdir = true                  -- auto change into directory
+-- vim.o.autochdir = true                  -- auto change into directory
 vim.opt.clipboard = "unnamedplus"       -- use system clipboard

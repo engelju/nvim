@@ -18,9 +18,13 @@ vim.opt.rtp:prepend(lazypath)
 -- Install plugins
 require("lazy").setup({
 	spec = {
-		{ 'overcache/NeoSolarized' },
-		{ 'tpope/vim-sensible' },
-		{ 'tomtom/tcomment_vim' },
+
+		{ 'tpope/vim-sensible' },           -- sensible defaults
+        -- == UI
+		{ 'overcache/NeoSolarized' },       -- colorscheme
+		{ 'f-person/auto-dark-mode.nvim' }, -- auto dark mode
+        { 'nvim-lualine/lualine.nvim' },    -- status line
+
 		{
 			'nvim-telescope/telescope.nvim',
 			dependencies = {
@@ -28,31 +32,62 @@ require("lazy").setup({
 				'nvim-telescope/telescope-fzf-native.nvim',
 			}
 		},
+        -- == DEV
+        -- === Treesitter
 		{
 			'nvim-treesitter/nvim-treesitter',
 			lazy = false,
 			build = ':TSUpdate'
 		},
-		{
-			"mason-org/mason-lspconfig.nvim",
-			dependencies = {
-				"mason-org/mason.nvim",
-				"neovim/nvim-lspconfig",
-			},
-		},
-		{ 'mhinz/vim-sayonara' },
-        -- folding
-        { 
-            'kevinhwang91/nvim-ufo', 
-            dependencies = {
-                'kevinhwang91/promise-async'
-            }
+        -- === LSP
+        {
+            "mason-org/mason.nvim",
+            opts = {},
         },
+        {
+            "mason-org/mason-lspconfig.nvim",
+            dependencies = {
+                "mason-org/mason.nvim",
+                "neovim/nvim-lspconfig",
+            },
+            opts = {
+                automatic_enable = true,
+            },
+        },
+        {
+            "ray-x/lsp_signature.nvim",
+            opts = function()
+              return {
+                -- -- Window mode
+                -- floating_window = true,                 -- Display it as floating window.
+                -- hi_parameter = "IncSearch",             -- Color to highlight floating window.
+                -- handler_opts = { border = 'rounded' },  -- Window style
+                --
+                -- -- Hint mode
+                -- hint_enable = true, -- Display it as hint.
+                -- hint_prefix = "👈 ",
+                --
+                -- -- Additionally, you can use <space>uH to toggle inlay hints.
+                -- toggle_key_flip_floatwin_setting = true
+
+                bind = true,
+                handler_opts = {
+                    border = "rounded"
+                }
+              }
+            end,
+            config = function(_, opts) require('lsp_signature').setup(opts) end
+        },
+
+        -- other misc dev
+		{ 'tomtom/tcomment_vim' },          -- easier commenting out
         {
             'windwp/nvim-autopairs',
             dependencies = "windwp/nvim-ts-autotag",
             event = "InsertEnter",
             config = true
         },
+        -- { 'bling/vim-bufferline' },
+	    -- { 'mhinz/vim-sayonara' },
 	},
 })

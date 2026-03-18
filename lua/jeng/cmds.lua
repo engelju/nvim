@@ -56,6 +56,18 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    if vim.bo[args.buf].filetype == "go" then
+      require("lsp_signature").on_attach({
+        floating_window = false,
+        hint_enable = true,
+        hint_prefix = "👈 ",
+      }, args.buf)
+    end
+  end,
+})
+
 -- Conditional taken from https://github.com/rockyzhang24/dotfiles/commit/03dd14b5d43f812661b88c4660c03d714132abcf
 -- Workaround for https://github.com/neovim/neovim/issues/32068
 
