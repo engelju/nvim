@@ -44,18 +44,17 @@ vim.keymap.set('n', '<leader>/', ':TComment<CR>', { silent = true })
 vim.keymap.set('v', '<leader>/', ':TCommentMaybeInline<CR>', { silent = true })
 
 -- == MISC
+vim.keymap.set("n", "<leader>r", ":%s///g<Left><Left><Left>") --replace all in buffer
+--vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>")
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
-vim.keymap.set('n', '<leader>vs', ':vsplit<CR>:bnext<CR>') --ver split + open next buffer
-vim.keymap.set('n', '<leader>hs', ':split<CR>:bnext<CR>') --hor split + open next buffer
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>")
-vim.keymap.set("n", "<leader>bda", "::bufdo bd<CR>") --close all
-
--- misc
-vim.keymap.set("n", "<leader>r", ":%s///g<Left><Left><Left>") --replace all in buffer
---vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>bda", ":bufdo bd<CR>") --close all
+vim.keymap.set("n", "vs", ":vsplit<CR>") --close all
+-- vim.keymap.set('n', '<leader>vs', ':vsplit<CR>:bnext<CR>') --ver split + open next buffer
+-- vim.keymap.set('n', '<leader>hs', ':split<CR>:bnext<CR>') --hor split + open next buffer
 
 -- from primagen (check)
 -- better defaults
