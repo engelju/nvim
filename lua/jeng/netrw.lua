@@ -9,6 +9,9 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "c", "%", opts)      -- create
     vim.keymap.set("n", "r", "R", opts)      -- rename
     vim.keymap.set("n", "d", "D", opts)      -- delete
+    vim.keymap.set("n", "h", "-", opts)      -- dir up
+    vim.keymap.set("n", "l", "<CR>", opts)   -- dir down
+    vim.keymap.set("n", ".", "gh", opts)     -- toggle hidden
   end,
 })
 
@@ -25,5 +28,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
     if is_empty and vim.bo.buftype == "" then
       vim.cmd("Ex")
     end
+  end,
+})
+
+-- display full path in netrw
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "netrw",
+  callback = function()
+    vim.opt_local.statusline = "%{b:netrw_curdir}"
   end,
 })
