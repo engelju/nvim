@@ -56,40 +56,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
+-- enable LSP
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    if vim.bo[args.buf].filetype == "go" then
-      require("lsp_signature").on_attach({
-        floating_window = false,
-        hint_enable = true,
-        hint_prefix = "👈 ",
-      }, args.buf)
-    end
-  end,
-})
-
--- Conditional taken from https://github.com/rockyzhang24/dotfiles/commit/03dd14b5d43f812661b88c4660c03d714132abcf
--- Workaround for https://github.com/neovim/neovim/issues/32068
-
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
-	pattern = "*",
-	group = augroup,
-	callback = function()
-		if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
-			vim.opt.relativenumber = true
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
-	pattern = "*",
-	group = augroup,
-	callback = function()
-		if vim.o.nu then
-			vim.opt.relativenumber = false
-			if not vim.tbl_contains({"@", "-"}, vim.v.event.cmdtype) then
-				vim.cmd "redraw"
-			end
-		end
+	callback = function(ev)
+		require("lsp_signature").on_attach({
+			bind = true,
+			floating_window = true,
+			hint_enable = false,
+			handler_opts = { border = "rounded" },
+		}, ev.buf)
 	end,
 })
