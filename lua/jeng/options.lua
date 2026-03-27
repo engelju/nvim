@@ -1,56 +1,52 @@
--- primagens' settings
+-- system
+vim.opt.title = true -- automatic window titlebar
+vim.opt.mouse = "a" -- enable mouse
+vim.opt.clipboard = "unnamedplus" -- use system clipboard
+vim.opt.autochdir = true -- auto change into directory
+vim.opt.termguicolors = true -- modern colors
 
---vim.opt.nu = true
+-- tabs
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
--- vim.opt.wrap = false
--- vim.opt.swapfile = false
--- vim.opt.backup = false
--- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
--- vim.opt.undofile = true
--- vim.opt.hlsearch = true
--- vim.opt.incsearch = true
--- vim.opt.termguicolors = true
---
--- --vim.opt.scrolloff = 8
--- --vim.opt.signcolumn = "yes"
--- --vim.opt.isfname:append("@-@")
--- --vim.opt.colorcolumn = "80"
--- vim.opt.updatetime = 50
+-- vim.opt.tabstop = 4 --visual width of tab
 
--- bop's settings
-vim.opt.laststatus = 3
--- vim.opt.ruler = false --disable extra numbering
-vim.opt.showmode = false --not needed due to lualine
-vim.opt.showcmd = false
--- vim.opt.wrap = true --toggle bound to leader W
--- vim.opt.mouse = "a" --enable mouse
--- vim.opt.history = 100 --command line history
+-- history & backup
+vim.opt.history = 100 -- command line history
 -- vim.opt.swapfile = false --swap just gets in the way usually
 -- vim.opt.backup = false
 -- vim.opt.undofile = true --undos are saved to file
--- vim.opt.cursorline = true --highlight line
--- vim.opt.ttyfast = true --faster scrolling
--- vim.opt.smoothscroll = true
-vim.opt.title = true --automatic window titlebar
+-- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
+-- performance
+vim.opt.updatetime = 50
+vim.opt.timeoutlen = 300
+vim.opt.smoothscroll = true
+
+-- status line
+vim.opt.signcolumn = "yes" -- space for diagnostics
+vim.opt.laststatus = 3 -- global statusline, for lualine
+vim.opt.showmode = false -- unnecessairy due to lualine
+vim.opt.showcmd = true -- show partial command in normal mode
+
+-- search
+vim.opt.hlsearch = true -- highlight matches
+vim.opt.incsearch = true -- live search feedback
+vim.opt.ignorecase = true -- ignore case while searching
+vim.opt.smartcase = true -- but do not ignore if caps are used
+
+-- folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldlevel = 99 -- disable folding lower #s enable
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- ui
+-- vim.opt.number = true
 -- vim.opt.numberwidth = 4
--- vim.opt.smarttab = true --indentation stuff
--- vim.opt.cindent = true
--- vim.opt.autoindent = false
--- vim.opt.tabstop = 4 --visual width of tab
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldlevel = 99 --disable folding lower #s enable
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.opt.termguicolors = true
--- vim.opt.ignorecase = true --ignore case while searching
--- vim.opt.smartcase = true --but do not ignore if caps are used
 -- vim.opt.conceallevel = 2 --markdown conceal
 -- vim.opt.concealcursor = "nc"
--- vim.opt.splitkeep = 'screen' --stablizie window open/close
-
--- mine
--- vim.o.autochdir = true                  -- auto change into directory
-vim.opt.clipboard = "unnamedplus"       -- use system clipboard
+vim.opt.splitkeep = "screen" -- stablizie window open/close
+vim.opt.scrolloff = 8
+vim.opt.cursorline = true -- highlight current line
