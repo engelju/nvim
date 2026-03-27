@@ -2,14 +2,19 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>e", function()
+	local filename = vim.fn.expand("%:t")
+	vim.cmd.Ex()
+	-- keep current file preselected
+	if filename ~= "" then
+		vim.fn.search("\\V" .. filename)
+	end
+end)
 vim.keymap.set("n", "<leader>n", vim.cmd.vnew)
 vim.keymap.set("n", "<leader>l", vim.cmd.Lazy)
-
+-- vim.keymap.set("n", "<leader>m", vim.cmd.Mason)
+-- TODO: add keybindings for TSInfo and LspInfo
 vim.keymap.set("n", "<leader>so", ":so %<CR>")
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end)
 
 vim.keymap.set("n", "<leader>a", "ggVG") --select all
 vim.keymap.set("v", "<leader>i", "=gv") --auto indent
@@ -20,28 +25,25 @@ vim.keymap.set("n", "<leader>mv", ":!mv % ") --move a file to a new dir
 vim.keymap.set("n", "<leader>gu", ':silent !xdg-open "<cWORD>" &<CR>') --open a url under cursor
 
 -- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>b',  builtin.buffers, {})
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fw', function()
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>b", builtin.buffers, {})
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fw", function()
 	builtin.grep_string({
-		default_text = vim.fn.expand("<cword>")
-	});
+		default_text = vim.fn.expand("<cword>"),
+	})
 end)
-vim.keymap.set('n', '<leader>s', function()
+vim.keymap.set("n", "<leader>s", function()
 	-- like fg but with search first
-	builtin.grep_string({ search = vim.fn.input("Search for: ") });
+	builtin.grep_string({ search = vim.fn.input("Search for: ") })
 end)
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<C-p>',      builtin.git_files, {})
-
--- fugitive
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<C-p>", builtin.git_files, {})
 
 -- commentary
-vim.keymap.set('n', '<leader>/', ':TComment<CR>', { silent = true })
-vim.keymap.set('v', '<leader>/', ':TCommentMaybeInline<CR>', { silent = true })
+vim.keymap.set("n", "<leader>/", ":TComment<CR>", { silent = true })
+vim.keymap.set("v", "<leader>/", ":TCommentMaybeInline<CR>", { silent = true })
 
 -- == MISC
 vim.keymap.set("n", "<leader>r", ":%s///g<Left><Left><Left>") --replace all in buffer
@@ -52,9 +54,11 @@ vim.keymap.set("n", "<S-l>", ":bnext<CR>")
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>")
 vim.keymap.set("n", "<leader>bda", ":bufdo bd<CR>") --close all
-vim.keymap.set("n", "vs", ":vsplit<CR>") --close all
--- vim.keymap.set('n', '<leader>vs', ':vsplit<CR>:bnext<CR>') --ver split + open next buffer
--- vim.keymap.set('n', '<leader>hs', ':split<CR>:bnext<CR>') --hor split + open next buffer
+vim.keymap.set("n", "ss", ":split<CR>") -- split below
+vim.keymap.set("n", "vs", ":vsplit<CR>") -- split right
+-- vim.keymap.set("n", "<C-w>x", "<C-w>q", { noremap = true }) -- close split FIXME this doesn't work
+-- vim.keymap.set("n", "<leader>ss", ":split<CR>:bnext<CR>") --hor split + open next buffer
+-- vim.keymap.set("n", "<leader>vs", ":vsplit<CR>:bnext<CR>") --ver split + open next buffer
 
 -- from primagen (check)
 -- better defaults
@@ -65,8 +69,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "=ap", "ma=ap'a")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "=ap", "ma=ap'a")
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -74,9 +78,20 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- reset search strings
 vim.keymap.set("n", "//", vim.cmd.nohlsearch)
+
+-- diagnostics
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "gwp", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "gwn", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+
+vim.diagnostic.config({ virtual_text = true })
+-- vim.keymap.set("n", "<leader>dv", function()
+-- 	vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
+-- end, { desc = "Toggle diagnostics virtual text" })
