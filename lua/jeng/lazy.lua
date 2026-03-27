@@ -19,75 +19,129 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 
-		{ 'tpope/vim-sensible' },           -- sensible defaults
-        -- == UI
-		{ 'overcache/NeoSolarized' },       -- colorscheme
-		{ 'f-person/auto-dark-mode.nvim' }, -- auto dark mode
-        { 'nvim-lualine/lualine.nvim' },    -- status line
+		{ "tpope/vim-sensible" }, -- sensible defaults
+		-- == UI
+		{ "overcache/NeoSolarized" }, -- colorscheme
+		{ "f-person/auto-dark-mode.nvim" }, -- auto dark mode
+		{ "nvim-lualine/lualine.nvim" }, -- status line
 
 		{
-			'nvim-telescope/telescope.nvim',
+			"nvim-telescope/telescope.nvim",
 			dependencies = {
-				'nvim-lua/plenary.nvim',
-				'nvim-telescope/telescope-fzf-native.nvim',
-			}
+				"nvim-lua/plenary.nvim",
+				"nvim-telescope/telescope-fzf-native.nvim",
+			},
 		},
-        -- == DEV
-        -- === Treesitter
+		-- == DEV
+		{ "airblade/vim-gitgutter" },
+		-- === Treesitter
 		{
-			'nvim-treesitter/nvim-treesitter',
-			lazy = false,
-			build = ':TSUpdate'
+			"nvim-treesitter/nvim-treesitter",
+			build = ":TSUpdate",
+			opts = {
+				ensure_installed = {
+					"go",
+					"gomod",
+					"gosum",
+					"lua",
+					"python",
+					"yaml",
+					"json",
+					"markdown",
+					"markdown_inline",
+					"bash",
+					"dockerfile",
+					"hcl",
+					"toml",
+					"vim",
+					"vimdoc",
+					"regex",
+				},
+				auto_install = true,
+				highlight = { enable = true },
+				indent = { enable = true },
+			},
+			config = function(_, opts)
+				require("nvim-treesitter.configs").setup(opts)
+			end,
 		},
-        -- === LSP
-        {
-            "mason-org/mason.nvim",
-            opts = {},
-        },
-        {
-            "mason-org/mason-lspconfig.nvim",
-            dependencies = {
-                "mason-org/mason.nvim",
-                "neovim/nvim-lspconfig",
-            },
-            opts = {
-                automatic_enable = true,
-            },
-        },
-        {
-            "ray-x/lsp_signature.nvim",
-            opts = function()
-              return {
-                -- -- Window mode
-                -- floating_window = true,                 -- Display it as floating window.
-                -- hi_parameter = "IncSearch",             -- Color to highlight floating window.
-                -- handler_opts = { border = 'rounded' },  -- Window style
-                --
-                -- -- Hint mode
-                -- hint_enable = true, -- Display it as hint.
-                -- hint_prefix = "👈 ",
-                --
-                -- -- Additionally, you can use <space>uH to toggle inlay hints.
-                -- toggle_key_flip_floatwin_setting = true
-
-                bind = true,
-                handler_opts = {
-                    border = "rounded"
-                }
-              }
-            end,
-            config = function(_, opts) require('lsp_signature').setup(opts) end
-        },
-
-        -- other misc dev
-		{ 'tomtom/tcomment_vim' },          -- easier commenting out
-        {
-            'windwp/nvim-autopairs',
-            dependencies = "windwp/nvim-ts-autotag",
-            event = "InsertEnter",
-            config = true
-        },
-        -- { 'bling/vim-bufferline' },
-	    -- { 'mhinz/vim-sayonara' },
+		-- === LSP
+		{
+			"mason-org/mason.nvim",
+			opts = {},
+		},
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			dependencies = { "williamboman/mason.nvim" },
+			opts = {
+				ensure_installed = {
+					-- lsps
+					"gopls",
+					"yaml-language-server",
+					"json-lsp",
+					"lua_ls",
+					"pyright",
+					"marksman",
+					-- formatters
+					"gofumpt",
+					"goimports",
+					"stylua",
+					"ruff",
+					"prettier",
+				},
+				auto_update = true,
+				run_on_start = true,
+			},
+		},
+		{
+			"stevearc/conform.nvim",
+			event = "BufWritePre",
+			opts = {
+				formatters_installed_by_mason = true,
+				format_on_save = {
+					timeout_ms = 1000,
+					lsp_format = "fallback",
+				},
+				formatters_by_ft = {
+					go = { "gofumpt", "goimports" },
+					lua = { "stylua" },
+					python = { "ruff_format" },
+					yaml = { "prettier" },
+					json = { "prettier" },
+					jsonc = { "prettier" },
+					markdown = { "prettier" },
+				},
+			},
+		},
+		{
+			"mason-org/mason-lspconfig.nvim",
+			dependencies = {
+				"mason-org/mason.nvim",
+				"neovim/nvim-lspconfig",
+			},
+			opts = {
+				automatic_enable = true,
+			},
+		},
+		{
+			"ray-x/lsp_signature.nvim",
+			event = "InsertEnter",
+			opts = {
+				bind = true,
+				handler_opts = {
+					border = "rounded",
+				},
+			},
+		},
+		-- other misc dev
+		{ "tomtom/tcomment_vim" }, -- easier commenting out
+		{
+			"windwp/nvim-autopairs",
+			dependencies = "windwp/nvim-ts-autotag",
+			event = "InsertEnter",
+			config = true,
+		},
+		-- { 'bling/vim-bufferline' },
+		-- { 'mhinz/vim-sayonara' },
 	},
 })
