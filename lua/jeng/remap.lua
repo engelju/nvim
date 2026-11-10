@@ -56,7 +56,7 @@ vim.keymap.set("n", "<leader>bd", ":bdelete<CR>")
 vim.keymap.set("n", "<leader>bda", ":bufdo bd<CR>") --close all
 vim.keymap.set("n", "ss", ":split<CR>") -- split below
 vim.keymap.set("n", "vs", ":vsplit<CR>") -- split right
--- vim.keymap.set("n", "<C-w>x", "<C-w>q", { noremap = true }) -- close split FIXME this doesn't work
+vim.keymap.set("n", "sq", "<C-w>q")
 -- vim.keymap.set("n", "<leader>ss", ":split<CR>:bnext<CR>") --hor split + open next buffer
 -- vim.keymap.set("n", "<leader>vs", ":vsplit<CR>:bnext<CR>") --ver split + open next buffer
 
@@ -69,8 +69,11 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "p", ":put<CR>", { silent = true })
+vim.keymap.set("n", "P", ":put!<CR>", { silent = true }) -- paste above
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
+vim.keymap.set("n", "DD", '""dd')
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
