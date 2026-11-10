@@ -1,3 +1,9 @@
+vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
+	callback = function()
+		vim.opt.guicursor = "a:ver25" -- leave a bar cursor behind
+	end,
+})
+
 -- auto-create missing dirs when saving a file
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",

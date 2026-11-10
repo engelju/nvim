@@ -4,6 +4,7 @@ vim.opt.mouse = "a" -- enable mouse
 vim.opt.clipboard = "unnamedplus" -- use system clipboard
 vim.opt.autochdir = true -- auto change into directory
 vim.opt.termguicolors = true -- modern colors
+vim.g.loaded_python3_provider = 0 -- skip slow python3/pynvim probe on python files
 
 -- tabs
 vim.opt.tabstop = 4
@@ -46,6 +47,8 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.number = true
 -- vim.opt.numberwidth = 4
 vim.opt.splitkeep = "screen" -- stablizie window open/close
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 vim.opt.scrolloff = 8
 vim.opt.cursorline = true -- highlight current line
 -- vim.opt.conceallevel = 2 --markdown conceal
