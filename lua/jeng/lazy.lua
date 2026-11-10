@@ -111,6 +111,7 @@ require("lazy").setup({
 					"lua_ls",
 					"pyright",
 					"marksman",
+					"jdtls",
 					-- formatters
 					"gofumpt",
 					"goimports",
