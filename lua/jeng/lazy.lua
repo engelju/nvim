@@ -37,9 +37,11 @@ require("lazy").setup({
 		-- === Treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
+			branch = "main",
+			lazy = false,
 			build = ":TSUpdate",
-			opts = {
-				ensure_installed = {
+			config = function()
+				require("nvim-treesitter").install({
 					"go",
 					"gomod",
 					"gosum",
@@ -56,13 +58,35 @@ require("lazy").setup({
 					"vim",
 					"vimdoc",
 					"regex",
-				},
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-			},
-			config = function(_, opts)
-				require("nvim-treesitter.configs").setup(opts)
+				})
+				local function start(buf)
+					if pcall(vim.treesitter.start, buf) then
+						vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end
+				local available
+				vim.api.nvim_create_autocmd("FileType", {
+					callback = function(args)
+						local ts = require("nvim-treesitter")
+						local lang = vim.treesitter.language.get_lang(args.match) or args.match
+						if not available then
+							available = {}
+							for _, l in ipairs(ts.get_available()) do
+								available[l] = true
+							end
+						end
+						-- auto_install: missing but available parsers get installed, then started
+						if available[lang] and not vim.list_contains(ts.get_installed("parsers"), lang) then
+							ts.install(lang):await(vim.schedule_wrap(function()
+								if vim.api.nvim_buf_is_valid(args.buf) then
+									start(args.buf)
+								end
+							end))
+						else
+							start(args.buf)
+						end
+					end,
+				})
 			end,
 		},
 		-- === LSP
