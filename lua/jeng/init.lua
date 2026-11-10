@@ -9,5 +9,5 @@ require("jeng.lualine")
 require("jeng.netrw")
 
 -- colors
-vim.cmd.colorscheme('NeoSolarized')
+vim.cmd.colorscheme('neosolarized-jeng')
 vim.o.termguicolors = true

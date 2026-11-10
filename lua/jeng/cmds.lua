@@ -9,10 +9,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- spellcheck in md
+-- wrap in md
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
-	command = "setlocal spell wrap",
+	command = "setlocal wrap",
 })
 
 -- disable automatic comment on newline

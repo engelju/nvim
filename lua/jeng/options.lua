@@ -45,8 +45,8 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- ui
 -- vim.opt.number = true
 -- vim.opt.numberwidth = 4
--- vim.opt.conceallevel = 2 --markdown conceal
--- vim.opt.concealcursor = "nc"
 vim.opt.splitkeep = "screen" -- stablizie window open/close
 vim.opt.scrolloff = 8
 vim.opt.cursorline = true -- highlight current line
+-- vim.opt.conceallevel = 2 --markdown conceal
+vim.opt.concealcursor = "nc"

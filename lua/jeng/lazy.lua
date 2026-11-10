@@ -32,6 +32,11 @@ require("lazy").setup({
 				"nvim-telescope/telescope-fzf-native.nvim",
 			},
 		},
+		{
+			"MeanderingProgrammer/render-markdown.nvim",
+			dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.icons" },
+			opts = {},
+		},
 		-- == DEV
 		{ "airblade/vim-gitgutter" },
 		-- === Treesitter
